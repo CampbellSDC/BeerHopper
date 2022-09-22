@@ -1,0 +1,54 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.primary-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.primary-navigation ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5rem;
+
+}
+
+.primary-navigation ul li {
+    margin-left: 2rem;
+}
+
+
+#map{
+    height: 250px;
+}
+
+.brewery_wrapper {
+   
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+
+.brew_name {
+    
+    width: 50vw;
+}
+
+
+.brew_url {
+    width: 50vw;
+    outline: 1px solid orange;
+}
