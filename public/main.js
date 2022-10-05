@@ -37,12 +37,6 @@ function getCoords(){
             body: JSON.stringify(data)
                 }
 
-            
-            const response = await fetch('/api', options)
-           const json = await response.json()
-           console.log(json)
-           coordsArray.push(json)
-           console.log(coordsArray)
 
     fetch(coordsURL)
             .then(res => res.json())
