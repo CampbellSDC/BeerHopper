@@ -44,14 +44,17 @@
     <main class="primary-main">
 
         <section class="intro">
-            
-            <input type="text" class="brewery_input" placeholder="Enter City">
-            <button>Find Brewery</button>
+            <div class="input_wrapper">
+                <input type="text" class="brewery_input" placeholder="Enter City">
+                <button>Find Brewery</button>
 
-            <button id="coordinates-btn">Click Here For Closest Breweries</button>
+                <button id="coordinates-btn">Click Here For Closest Breweries</button>
+                
+            </div>
+
             <h3>Your Current Location: </h3>
 
-            <p>
+            <p class="lat_long">
                 Latitude: <span id="latitude"></span>&deg;<br>
                 Longitude: <span id="longitude"></span>&deg;
             
@@ -60,8 +63,8 @@
         
          <h2 class="brewery_name">Brewery Name</h2>
 
-        <div class="brewery_wrapper">
-            <div class="brew_name">
+        <div class="brewery_wrapper paddingOne">
+            <div class="brew_name paddingOne">
                 <ol id="brewPlaces">
 
                 </ol>
