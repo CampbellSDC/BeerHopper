@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- Leaflet Map -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
+
+    <title>BeerHopper</title>
+</head>
+<body>
+   
+
+
+    <header class="primary-header">
+        <div class="logo-title">
+            <h3>Beer Hopper</h3>
+        </div>
+
+        <div class="logo-image">
+            <img src="" alt="">
+        </div>
+
+        <nav class="primary-navigation">
+
+            <ul>
+                <li><a href="#">ABOUT</a></li>
+                <li><a href="#">BREWERIES</a></li>
+                <li><a href="#">RECIPES</a></li>
+                <li><a href="#">MY BEERS</a></li>
+                <li><a href="#">SIGN UP</a></li>
+                <li><a href="#">LOG IN</a></li>
+            </ul>
+
+            
+        </nav>
+       
+
+    </header>
+
+    <main class="primary-main">
+
+        <section class="intro">
+            <div class="input_wrapper">
+                <input type="text" class="brewery_input" placeholder="Enter City">
+                <button>Find Brewery</button>
+
+                <button id="coordinates-btn">Click Here For Closest Breweries</button>
+                
+            </div>
+
+            <h3>Your Current Location: </h3>
+
+            <p class="lat_long">
+                Latitude: <span id="latitude"></span>&deg;<br>
+                Longitude: <span id="longitude"></span>&deg;
+            
+            </p>
+
+            <!-- Brewery Lists -->
+            
+            <div class="brewery_wrapper paddingOne">
+                <div class="brewery-list-wrapper">
+                    <h2 class="brewery_name">Brewery Name</h2>
+                    <div class="brew_name paddingOne">
+                        <p class="placeholder-text">Let's find some breweries!</p>
+                    
+                    <ol id="brewPlaces"></ol>
+                    </div>
+                </div>
+
+                <button id="move-to-favorites">Move To Favorites</button>
+
+                    
+                
+                <div class="favorites-container">
+                    <h3 id="favorite-breweries">My Favorites</h3>
+                    <div class="favorites-wrapper">
+                       
+                        <div id="favorite-brewery-list"></div>
+                
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+            
+
+           
+            
+        </section>
+
+        
+
+    </main>
+
+   
+    
+
+
+    <script src="main.js"></script>
+    
+</body>
+</html>
