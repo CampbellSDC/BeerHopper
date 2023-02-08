@@ -59,22 +59,32 @@
                 Longitude: <span id="longitude"></span>&deg;
             
             </p>
+
+            <!-- Brewery Lists -->
             
-        
-         <h2 class="brewery_name">Brewery Name</h2>
+            <div class="brewery_wrapper paddingOne">
+                <div class="brewery-list-wrapper">
+                    <h2 class="brewery_name">Brewery Name</h2>
+                    <div class="brew_name paddingOne">
+                        <p class="placeholder-text">Let's find some breweries!</p>
+                    
+                    <ol id="brewPlaces"></ol>
+                    </div>
+                </div>
 
-        <div class="brewery_wrapper paddingOne">
-            <div class="brew_name paddingOne">
-                <ol id="brewPlaces">
+                <button id="move-to-favorites">Move To Favorites</button>
 
-                </ol>
+                    
+                
+                <div class="favorites-container">
+                    <h3 id="favorite-breweries">My Favorites</h3>
+                    <div class="favorites-wrapper">
+                       
+                        <div id="favorite-brewery-list"></div>
+                
+                    </div>
+                </div>
             </div>
-
-            <div class="map_wrapper">
-                <h3 class="brewery_location">Brewery Location</h3>
-                <div id='map' style='width: 400px; height: 300px;'></div>
-            </div>
-
         
         </div>
             
@@ -87,18 +97,9 @@
 
     </main>
 
-    <script>
-        
-        
-    </script>
+   
     
-<script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2NhbXBiZWxsZGV2IiwiYSI6ImNsMzMzeDRkMDBwcW4zYnJ4ZXYzdThodnkifQ.5u0LTcBsYw1JWsnyTDgLjw';
-var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11'
-});
-</script>
+
 
     <script src="main.js"></script>
     
