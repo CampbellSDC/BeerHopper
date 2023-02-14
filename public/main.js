@@ -11,6 +11,8 @@ const initialBrewListText = document.getElementById('initial-text')
 // create global array to be able to access the objects and loop through to create
 // new array for favorites
 
+const breweryArray = []
+
 
 const moveFavoritesBtn = document.getElementById('move-to-favorites')
 
@@ -25,22 +27,19 @@ const coordsArray = [];
 
 
 moveFavoritesBtn.addEventListener('click', () => {
+  const checkedBrewery = document.querySelectorAll('input[type="checkbox"]:checked')
   const favoritesArray = []
   
-  
-  
-  const checkedBrewery = document.querySelectorAll('input[type="checkbox"]:checked')
-  
-  if (checkedBrewery){
-    
-    for(let check of checkedBrewery){
-      favoritesArray.push(check.previousSibling.parentElement.)
-      favoriteBreweries.innerHTML = `
-      <li><a href="${favoritesArray.title}">${favoritesArray.value}</a></li>
-      `
+    for(let i = 0; i<checkedBrewery.length; i++) {
+      
+      
+      if(checkedBrewery){
+        favoritesArray.push(breweryArray[i])
+      }
+        
     }
     console.log(favoritesArray)
-    }
+    
 
   
   
@@ -164,6 +163,7 @@ function getBrewery() {
         let li = document.createElement("li")
         let url_li = document.createElement("li")
         let input = document.createElement('input')
+        breweryArray.push(data[i])
         input.type = 'checkbox'
         input.setAttribute('id', breweries[i])
         input.classList.add('brewery-checkbox')
@@ -181,6 +181,7 @@ function getBrewery() {
         li.appendChild(input)
         ul.appendChild(li)
       }
+      console.log(breweryArray)
     })
 
     .catch((err) => {
