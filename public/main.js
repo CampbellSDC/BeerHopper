@@ -4,7 +4,13 @@ let city = document.querySelector(".brewery_input").value;
 
 let brewList = document.getElementById("brewPlaces");
 
-const breweryCheckbox = document.querySelectorAll('input[type="checkbox"]')
+const favoriteBreweries = document.getElementById('favorite-brew-places')
+
+const initialBrewListText = document.getElementById('initial-text')
+
+// create global array to be able to access the objects and loop through to create
+// new array for favorites
+
 
 const moveFavoritesBtn = document.getElementById('move-to-favorites')
 
@@ -13,27 +19,41 @@ document.getElementById("coordinates-btn").addEventListener("click", getCoords);
 const coordsArray = [];
 
 
-// Do I make a global array variable to hold the elements of the array that I get
-// back from the API? This way, I would be able to use that array in another function
-// to be able to do a foreach() to create a new array for the favorite breweries
+
 
 // FAVORITES BUTTON
+
+
 moveFavoritesBtn.addEventListener('click', () => {
   const favoritesArray = []
-  // if the checkbox is checked for a particular brewery, I want that 
-  // brewery to be pushed to a new array that will be display in the
-  // "favorites list"
-  if (breweryCheckbox.checked){
-    favoritesArray.push(breweryCheckbox.checked)
-  }
+  
+  
+  
+  const checkedBrewery = document.querySelectorAll('input[type="checkbox"]:checked')
+  
+  if (checkedBrewery){
+    
+    for(let check of checkedBrewery){
+      favoritesArray.push(check.previousSibling.parentElement.)
+      favoriteBreweries.innerHTML = `
+      <li><a href="${favoritesArray.title}">${favoritesArray.value}</a></li>
+      `
+    }
+    console.log(favoritesArray)
+    }
 
-  console.log(favoritesArray)
+  
+  
+  
 })
+
+
 
 // GET BREWERIES FROM GEOLOCATION
 
 function getCoords() {
   if ("geolocation" in navigator) {
+    initialBrewListText.classList.add('hide-text')
     document.getElementById("longitude").textContent = "";
 
     document.getElementById("latitude").textContent = "";
@@ -83,11 +103,13 @@ function getCoords() {
           let ul = document.getElementById("brewPlaces");
 
           for (let i = 0; i < breweries.length; i++) {
-            // ul.textContent = ''
+            ul.textContent = ''
             let li = document.createElement("li");
             let url_li = document.createElement("li");
 
-            //         // Creating link for breweries and appending to DOM
+           // Creating link for breweries and appending to DOM
+
+           
 
             let a = document.createElement("a");
 
@@ -110,6 +132,8 @@ function getCoords() {
   }
 }
 
+
+
 // GET BREWERY FROM USER CITY INPUT
 
 function getBrewery() {
@@ -118,6 +142,8 @@ function getBrewery() {
   let brewName = document.querySelector(".brewery_name");
 
   let url = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
+
+  initialBrewListText.classList.add('hide-text')
 
   brewList.innerHTML = "";
 
@@ -139,16 +165,18 @@ function getBrewery() {
         let url_li = document.createElement("li")
         let input = document.createElement('input')
         input.type = 'checkbox'
+        input.setAttribute('id', breweries[i])
         input.classList.add('brewery-checkbox')
                 // Creating link for breweries and appending to DOM
 
         let a = document.createElement("a")
+        a.setAttribute("for", breweries[i])
 
         let link = document.createTextNode(breweries[i])
 
         a.appendChild(link)
-        a.title = breweries
-        a.href = brewing_url[i] || "#"
+        a.title = brewing_url[i] || "#"
+        a.href = brewing_url[i]
         li.appendChild(a)
         li.appendChild(input)
         ul.appendChild(li)
