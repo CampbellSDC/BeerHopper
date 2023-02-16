@@ -58,6 +58,10 @@ a {
   
 }
 
+.favorites-container, .brewery_wrapper {
+    text-align: center;
+}
+
 
 
 .input_wrapper {
@@ -75,7 +79,7 @@ h2, h3 {
 
 .brew_name {
     
-    
+    padding: 2rem;
     border: 2px solid lightgray;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background: none;

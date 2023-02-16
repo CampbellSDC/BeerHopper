@@ -8,6 +8,8 @@ const favoriteBreweries = document.getElementById('favorite-brew-places')
 
 const initialBrewListText = document.getElementById('initial-text')
 
+const initialFavoritesText = document.getElementById('favorites-initial-text')
+
 // create global array to be able to access the objects and loop through to create
 // new array for favorites
 
@@ -29,6 +31,8 @@ const coordsArray = [];
 moveFavoritesBtn.addEventListener('click', () => {
   const checkedBrewery = document.querySelectorAll('input[type="checkbox"]:checked')
   const favoritesArray = []
+  initialFavoritesText.classList.add('hide-text')
+
   
     for(let i = 0; i<checkedBrewery.length; i++) {
       
