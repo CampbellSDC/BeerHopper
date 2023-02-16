@@ -34,7 +34,13 @@ moveFavoritesBtn.addEventListener('click', () => {
       
       
       if(checkedBrewery){
-        favoritesArray.push(breweryArray[i])
+        favoritesArray.push(checkedBrewery[i].closest('li').outerHTML)
+        favoriteBreweries.innerHTML =`
+        <li>
+          ${favoritesArray.join('')}
+          </li>
+          
+        ` 
       }
         
     }
