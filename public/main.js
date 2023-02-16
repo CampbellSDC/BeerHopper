@@ -10,8 +10,6 @@ const initialBrewListText = document.getElementById('initial-text')
 
 const initialFavoritesText = document.getElementById('favorites-initial-text')
 
-// create global array to be able to access the objects and loop through to create
-// new array for favorites
 
 const breweryArray = []
 
@@ -27,6 +25,7 @@ const coordsArray = [];
 
 // FAVORITES BUTTON
 
+// need to add to local storage as well
 
 moveFavoritesBtn.addEventListener('click', () => {
   const checkedBrewery = document.querySelectorAll('input[type="checkbox"]:checked')
