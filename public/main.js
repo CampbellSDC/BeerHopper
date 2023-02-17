@@ -106,37 +106,41 @@ function getCoords() {
 
           let brewing_url = data.map((elem) => elem.website_url);
 
-          let ul_URL = document.getElementById("brew_url");
-
           let ul = document.getElementById("brewPlaces");
 
+        
+
           for (let i = 0; i < breweries.length; i++) {
-            ul.textContent = ''
-            let li = document.createElement("li");
-            let url_li = document.createElement("li");
-
-           // Creating link for breweries and appending to DOM
-
-           
-
-            let a = document.createElement("a");
-
-            let link = document.createTextNode(breweries[i]);
-
-            if (breweries.name != li.textContent) {
-              a.appendChild(link);
-              a.title = breweries;
-              a.href = brewing_url[i] || "#";
-              li.appendChild(a);
-              ul.appendChild(li);
-            } else {
-              console.log("this brewery is already in this list");
-            }
+            let li = document.createElement("li")
+    
+            let input = document.createElement('input')
+            input.type = 'checkbox'
+            input.setAttribute('id', breweries[i])
+            input.classList.add('brewery-checkbox')
+    
+            let a = document.createElement("a")
+            a.setAttribute("for", breweries[i])
+    
+            let link = document.createTextNode(breweries[i])
+            // let url_li = document.createElement("li") commented out because it's not used anywhere
+            
+            breweryArray.push(data[i])
+            
+    
+                    // Creating link for breweries and appending to DOM
+            a.appendChild(link)
+            a.title = brewing_url[i] || "#"
+            a.href = brewing_url[i]
+            li.appendChild(a)
+            li.appendChild(input)
+            ul.appendChild(li)
           }
-        });
-    });
+          console.log(breweryArray)
+        })
+            
+      })
   } else {
-    console.log("Geolocation is not available");
+    console.log("Geolocation is not available")
   }
 }
 
@@ -164,25 +168,28 @@ function getBrewery() {
 
       let brewing_url = data.map((elem) => elem.website_url)
 
-      let ul_URL = document.getElementById("brew_url")
+      // let ul_URL = document.getElementById("brew_url") commented out because it's not used anywhere
 
       let ul = document.getElementById("brewPlaces")
 
       for (let i = 0; i < breweries.length; i++) {
         let li = document.createElement("li")
-        let url_li = document.createElement("li")
+
         let input = document.createElement('input')
-        breweryArray.push(data[i])
         input.type = 'checkbox'
         input.setAttribute('id', breweries[i])
         input.classList.add('brewery-checkbox')
-                // Creating link for breweries and appending to DOM
 
         let a = document.createElement("a")
         a.setAttribute("for", breweries[i])
 
         let link = document.createTextNode(breweries[i])
+        // let url_li = document.createElement("li") commented out because it's not used anywhere
+        
+        breweryArray.push(data[i])
+        
 
+                // Creating link for breweries and appending to DOM
         a.appendChild(link)
         a.title = brewing_url[i] || "#"
         a.href = brewing_url[i]
