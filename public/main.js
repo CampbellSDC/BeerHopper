@@ -14,15 +14,22 @@ const moveFavoritesBtn = document.getElementById('move-to-favorites')
 
 document.getElementById("coordinates-btn").addEventListener("click", getCoords);
 
+const removeBreweryBtn = document.getElementById('remove-brewery-btn')
+
 const breweryArray = []
 
 const coordsArray = []
 
 const favoritesArray = [] //this needed to be a global array so it didn't get reset when there was a new search
 
-const removeFavoriteBreweryBtn = document.getElementById('remove-brewery-btn')
+
 
 // need to add to local storage as well
+
+// Issue 1 - remove selected 'li' from "Favorites" list
+// Issue 2 - "move to favorites" button moves selected breweries multilple times 
+// with geolocation 
+
 
 
 
@@ -48,7 +55,7 @@ function getBrewery() {
 
       let brewing_url = data.map((elem) => elem.website_url)
 
-      // let ul_URL = document.getElementById("brew_url") commented out because it's not used anywhere
+      
 
       let ul = document.getElementById("brewPlaces")
 
@@ -100,19 +107,17 @@ moveFavoritesBtn.addEventListener('click', () => {
     for(let i = 0; i<checkedBrewery.length; i++) {
       
       
-      if(checkedBrewery && favoritesArray[i] != checkedBrewery[i].closest('li').outerHTML ){
+      if(checkedBrewery && favoritesArray[i] != checkedBrewery[i].closest('li').innerHTML ){
         
         favoritesArray.push(checkedBrewery[i].closest('li').outerHTML)
        
           favoriteBreweries.innerHTML =`
           <li>
             ${favoritesArray.join('')}
-            </li>
-
-            <button id="remove-brewery-btn">Remove Brewery</button>
+           </li> 
             
           `
-        
+        removeBreweryBtn.classList.remove('hide-text')
       }
         
     }
@@ -126,9 +131,37 @@ moveFavoritesBtn.addEventListener('click', () => {
 
 //REMOVE FAVORITE BREWERY
 
-removeFavoriteBreweryBtn.addEventListener('click', removeBrewery)
+// need to access ONLY checkboxes for favorites breweries and not ALL checkboxes
+// convert querySelectorALL to an array and map over to get values of checkboxes
+// once you have the values, you can then select the previous li element to
+// remove from the list
+
+removeBreweryBtn.addEventListener('click', removeBrewery)
 
 function removeBrewery() {
+  const checkedFavorite = document.querySelectorAll('input[type="checkbox"]:checked')
+  console.log(checkedFavorite)
+  for(i = 0; i<checkedFavorite.length; i++){
+
+    const brewerySelected = checkedFavorite[i].childNodes.textContent
+
+    if(checkedFavorite && favoritesArray[i] === brewerySelected){
+      
+      const removeBreweries = favoritesArray.indexOf(brewerySelected)
+      favoritesArray.splice(removeBreweries, 1)
+      
+      favoriteBreweries.innerHTML =`
+        <li>
+          ${favoritesArray.join('')}
+        </li>
+    
+          `
+     
+    }
+
+  }
+  
+  console.log(favoritesArray)
   
 }
 
