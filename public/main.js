@@ -64,11 +64,12 @@ function getBrewery() {
 
         let input = document.createElement('input')
         input.type = 'checkbox'
-        input.setAttribute('id', breweries[i])
+        input.setAttribute('data-name', breweries[i])
         input.classList.add('brewery-checkbox')
 
         let a = document.createElement("a")
-        a.setAttribute("for", breweries[i])
+        li.setAttribute("id", breweries[i])
+
 
         let link = document.createTextNode(breweries[i])
         // let url_li = document.createElement("li") commented out because it's not used anywhere
@@ -85,6 +86,7 @@ function getBrewery() {
         ul.appendChild(li)
       }
       console.log(breweryArray)
+      
     })
 
     .catch((err) => {
@@ -96,32 +98,45 @@ function getBrewery() {
 
 
 
-
+// Issue - breweries are only moved to favorites list on first click and checkboxes or only unchecked 
+// the first time move to favorites is clicked. If you add another checked brewery, the
+// all of the breweries are then added, but only the new brewery is unchecked under
+// Brewery Name
 
 moveFavoritesBtn.addEventListener('click', () => {
-  const checkedBrewery = document.querySelectorAll('input[type="checkbox"]:checked')
+  const checkedBrewery = document.querySelectorAll('.brewery-checkbox')
+  const checkedArray = Array.from(checkedBrewery)
+
+  
+  
+
+ 
   
   initialFavoritesText.classList.add('hide-text')
 
   
-    for(let i = 0; i<checkedBrewery.length; i++) {
+    for(let i = 0; i<checkedArray.length; i++) {
       
       
-      if(checkedBrewery && favoritesArray[i] != checkedBrewery[i].closest('li').innerHTML ){
+      
+      if(checkedArray[i].checked && !favoritesArray.includes(checkedArray[i].closest('li').outerHTML)){
+
+          checkedArray[i].classList.add('favorites-checkbox')
+
+          favoritesArray.push(checkedArray[i].closest('li').outerHTML)
         
-        favoritesArray.push(checkedBrewery[i].closest('li').outerHTML)
        
-          favoriteBreweries.innerHTML =`
-          <li>
-            ${favoritesArray.join('')}
-           </li> 
-            
-          `
-        removeBreweryBtn.classList.remove('hide-text')
+          favoriteBreweries.innerHTML = favoritesArray.join('')
+          
+          removeBreweryBtn.classList.remove('hide-text')
+
+          checkedArray[i].checked = !checkedArray[i].checked
+          
       }
-        
+      
     }
-    console.log(favoritesArray)
+    
+    
     
 
   
@@ -131,37 +146,33 @@ moveFavoritesBtn.addEventListener('click', () => {
 
 //REMOVE FAVORITE BREWERY
 
-// need to access ONLY checkboxes for favorites breweries and not ALL checkboxes
-// convert querySelectorALL to an array and map over to get values of checkboxes
-// once you have the values, you can then select the previous li element to
-// remove from the list
+
+
+
 
 removeBreweryBtn.addEventListener('click', removeBrewery)
 
 function removeBrewery() {
-  const checkedFavorite = document.querySelectorAll('input[type="checkbox"]:checked')
-  console.log(checkedFavorite)
-  for(i = 0; i<checkedFavorite.length; i++){
-
-    const brewerySelected = checkedFavorite[i].childNodes.textContent
-
-    if(checkedFavorite && favoritesArray[i] === brewerySelected){
-      
-      const removeBreweries = favoritesArray.indexOf(brewerySelected)
-      favoritesArray.splice(removeBreweries, 1)
-      
-      favoriteBreweries.innerHTML =`
-        <li>
-          ${favoritesArray.join('')}
-        </li>
-    
-          `
-     
-    }
-
-  }
   
-  console.log(favoritesArray)
+  
+  const checkedFavorite = document.querySelectorAll('ul#favorite-brew-places > li > input')
+  const checkedFavoriteArray = Array.from(checkedFavorite)
+
+  checkedFavoriteArray.forEach((checkbox) => {
+    if (checkbox.checked){
+      const li = checkbox.closest('li')
+      favoriteBreweries.removeChild(li)
+      checkedFavoriteArray.splice(checkedFavoriteArray.checked, 1)
+      
+      if(checkedFavoriteArray.length == 0){
+        initialFavoritesText.classList.remove('hide-text')
+        removeBreweryBtn.classList.add('hide-text')
+      }
+    }
+    
+  })
+   
+  
   
 }
 
@@ -245,7 +256,7 @@ function getCoords() {
             li.appendChild(input)
             ul.appendChild(li)
           }
-          console.log(breweryArray)
+          
         })
             
       })
