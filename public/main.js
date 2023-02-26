@@ -157,21 +157,27 @@ function removeBrewery() {
   
   const checkedFavorite = document.querySelectorAll('ul#favorite-brew-places > li > input')
   const checkedFavoriteArray = Array.from(checkedFavorite)
+  
 
   checkedFavoriteArray.forEach((checkbox) => {
+    
     if (checkbox.checked){
+     
       const li = checkbox.closest('li')
       favoriteBreweries.removeChild(li)
-      checkedFavoriteArray.splice(checkedFavoriteArray.checked, 1)
+      checkedFavoriteArray.splice(checkedFavoriteArray.checked,checkedFavoriteArray.checked )
+      favoritesArray.splice(li, 1)
       
-      if(checkedFavoriteArray.length == 0){
+      if(checkedFavoriteArray.length === 0){
         initialFavoritesText.classList.remove('hide-text')
         removeBreweryBtn.classList.add('hide-text')
       }
     }
+
+
     
   })
-   
+   console.log(favoritesArray)
   
   
 }
