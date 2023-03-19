@@ -5,9 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <!-- Leaflet Map -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css' rel='stylesheet' />
+   
+    
 
     <title>BeerHopper</title>
 </head>
@@ -17,12 +16,10 @@
 
     <header class="primary-header">
         <div class="logo-title">
-            <h3>Beer Hopper</h3>
+            
         </div>
 
-        <div class="logo-image">
-            <img src="" alt="">
-        </div>
+        
 
         <nav class="primary-navigation">
 
@@ -44,34 +41,54 @@
     <main class="primary-main">
 
         <section class="intro">
-            
-            <input type="text" class="brewery_input" placeholder="Enter City">
-            <button>Find Brewery</button>
+            <div class="input_wrapper">
+                <input type="text" class="brewery_input" placeholder="Enter City">
+                <button id="find-brewery-btn">Find Brewery</button>
 
-            <button id="coordinates-btn">Click Here For Closest Breweries</button>
+                <button id="coordinates-btn">Click Here For Closest Breweries</button>
+                
+            </div>
+
             <h3>Your Current Location: </h3>
 
-            <p>
+            <p class="lat_long">
                 Latitude: <span id="latitude"></span>&deg;<br>
                 Longitude: <span id="longitude"></span>&deg;
             
             </p>
+
+            <!-- Brewery Lists -->
             
-        
-         <h2 class="brewery_name">Brewery Name</h2>
+            <div class="brewery_wrapper paddingOne">
+                <div class="brewery-list-wrapper">
+                    <h2 class="brewery_name">Brewery Name</h2>
+                    <div class="brew_name paddingOne">
+                        <p id="initial-text" class="placeholder-text">Let's find some breweries!</p>
+                    
+                    <ul id="brewPlaces"></ul>
+                    </div>
+                </div>
 
-        <div class="brewery_wrapper">
-            <div class="brew_name">
-                <ol id="brewPlaces">
+                <button id="move-to-favorites">Move To Favorites</button>
 
-                </ol>
+                    
+                
+                <div class="favorites-container">
+                    <h2 id="favorite-breweries">My Favorites</h2>
+                    <div class="favorites-wrapper">
+                       
+                        <div id="favorite-brewery-list" class="brew_name">
+
+                            <p id="favorites-initial-text" class="placeholder-text">Add Your Favorite Breweries Here...</p>
+
+                            <ul id="favorite-brew-places"></ul>
+
+                            <button class="hide-text" id="remove-brewery-btn">Remove Brewery</button>
+                        </div>
+                
+                    </div>
+                </div>
             </div>
-
-            <div class="map_wrapper">
-                <h3 class="brewery_location">Brewery Location</h3>
-                <div id='map' style='width: 400px; height: 300px;'></div>
-            </div>
-
         
         </div>
             
@@ -84,18 +101,9 @@
 
     </main>
 
-    <script>
-        
-        
-    </script>
+   
     
-<script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2NhbXBiZWxsZGV2IiwiYSI6ImNsMzMzeDRkMDBwcW4zYnJ4ZXYzdThodnkifQ.5u0LTcBsYw1JWsnyTDgLjw';
-var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11'
-});
-</script>
+
 
     <script src="main.js"></script>
     
