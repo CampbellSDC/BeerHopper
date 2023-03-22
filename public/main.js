@@ -168,12 +168,12 @@ function removeBrewery() {
       checkedFavoriteArray.splice(checkedFavoriteArray.checked,checkedFavoriteArray.checked )
       favoritesArray.splice(li, 1)
       
-      if(checkedFavoriteArray.length == 0){
-        initialFavoritesText.classList.remove('hide-text')
-        removeBreweryBtn.classList.add('hide-text')
-      }
     }
-
+    if(favoritesArray.length == 0){
+      initialFavoritesText.classList.remove('hide-text')
+      removeBreweryBtn.classList.add('hide-text')
+  }
+  
 
     
   })
