@@ -168,11 +168,7 @@ function removeBrewery() {
       checkedFavoriteArray.splice(checkedFavoriteArray.checked,checkedFavoriteArray.checked )
       favoritesArray.splice(li, 1)
       
-<<<<<<< HEAD
       if(checkedFavoriteArray.length == 0){
-=======
-      if(checkedFavoriteArray.length === 0){
->>>>>>> 6954ecc1b8fde7d7aab5ed21b5fe27c7df497d11
         initialFavoritesText.classList.remove('hide-text')
         removeBreweryBtn.classList.add('hide-text')
       }
@@ -181,11 +177,7 @@ function removeBrewery() {
 
     
   })
-<<<<<<< HEAD
-   console.log(checkedFavoriteArray)
-=======
-   console.log(favoritesArray)
->>>>>>> 6954ecc1b8fde7d7aab5ed21b5fe27c7df497d11
+   
   
   
 }
