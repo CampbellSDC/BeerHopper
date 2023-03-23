@@ -20,15 +20,10 @@ const breweryArray = []
 
 const coordsArray = []
 
-const favoritesArray = [] //this needed to be a global array so it didn't get reset when there was a new search
+const favoritesArray = [] 
 
 
 
-// need to add to local storage as well
-
-// Issue 1 - remove selected 'li' from "Favorites" list
-// Issue 2 - "move to favorites" button moves selected breweries multilple times 
-// with geolocation 
 
 
 
@@ -36,14 +31,10 @@ const favoritesArray = [] //this needed to be a global array so it didn't get re
 // GET BREWERY FROM USER CITY INPUT
 
 function getBrewery() {
-  let city = document.querySelector(".brewery_input").value;
+  const city = document.querySelector(".brewery_input").value;
+  const url = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
 
-  let brewName = document.querySelector(".brewery_name");
-
-  let url = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
-
-  initialBrewListText.classList.add('hide-text')
-
+  initialBrewListText.classList.add('hide-text');
   brewList.innerHTML = "";
 
   fetch(url)
@@ -51,104 +42,61 @@ function getBrewery() {
     .then((data) => {
       console.log(data);
 
-      let breweries = data.map((elem) => elem.name);
+      data.forEach((brewery) => {
+        const li = document.createElement("li");
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.setAttribute('data-name', brewery.name);
+        input.classList.add('brewery-checkbox');
 
-      let brewing_url = data.map((elem) => elem.website_url)
+        const a = document.createElement("a");
+        li.setAttribute("id", brewery.name);
 
-      
-
-      let ul = document.getElementById("brewPlaces")
-
-      for (let i = 0; i < breweries.length; i++) {
-        let li = document.createElement("li")
-
-        let input = document.createElement('input')
-        input.type = 'checkbox'
-        input.setAttribute('data-name', breweries[i])
-        input.classList.add('brewery-checkbox')
-
-        let a = document.createElement("a")
-        li.setAttribute("id", breweries[i])
-
-
-        let link = document.createTextNode(breweries[i])
-        // let url_li = document.createElement("li") commented out because it's not used anywhere
+        const link = document.createTextNode(brewery.name);
         
-        breweryArray.push(data[i])
+        breweryArray.push(brewery);
         
+        a.appendChild(link);
+        a.title = brewery.website_url || "#";
+        a.href = brewery.website_url;
+        li.appendChild(a);
+        li.appendChild(input);
+        brewList.appendChild(li);
+      });
 
-                // Creating link for breweries and appending to DOM
-        a.appendChild(link)
-        a.title = brewing_url[i] || "#"
-        a.href = brewing_url[i]
-        li.appendChild(a)
-        li.appendChild(input)
-        ul.appendChild(li)
-      }
-      console.log(breweryArray)
-      
+      console.log(breweryArray);
     })
-
     .catch((err) => {
       console.log(`Error! ${err}`);
     });
 }
 
+
+
 // FAVORITES BUTTON
 
-
-
-// Issue - breweries are only moved to favorites list on first click and checkboxes or only unchecked 
-// the first time move to favorites is clicked. If you add another checked brewery, the
-// all of the breweries are then added, but only the new brewery is unchecked under
-// Brewery Name
-
 moveFavoritesBtn.addEventListener('click', () => {
-  const checkedBrewery = document.querySelectorAll('.brewery-checkbox')
-  const checkedArray = Array.from(checkedBrewery)
+  const checkedBrewery = document.querySelectorAll('.brewery-checkbox');
+  const checkedArray = Array.from(checkedBrewery);
 
-  
-  
+  initialFavoritesText.classList.add('hide-text');
 
- 
-  
-  initialFavoritesText.classList.add('hide-text')
-
-  
-    for(let i = 0; i<checkedArray.length; i++) {
-      
-      
-      
-      if(checkedArray[i].checked && !favoritesArray.includes(checkedArray[i].closest('li').outerHTML)){
-
-          checkedArray[i].classList.add('favorites-checkbox')
-
-          favoritesArray.push(checkedArray[i].closest('li').outerHTML)
-        
-       
-          favoriteBreweries.innerHTML = favoritesArray.join('')
-          
-          removeBreweryBtn.classList.remove('hide-text')
-
-          checkedArray[i].checked = !checkedArray[i].checked
-          
-      }
-      
+  checkedArray.forEach((checkbox) => {
+    if (checkbox.checked && !favoritesArray.includes(checkbox.closest('li').outerHTML)) {
+      checkbox.classList.add('favorites-checkbox');
+      favoritesArray.push(checkbox.closest('li').outerHTML);
+      favoriteBreweries.innerHTML = favoritesArray.join('');
+      removeBreweryBtn.classList.remove('hide-text');
+      checkbox.checked = !checkbox.checked;
     }
-    
-    
-    
+  });
 
-  
-  
-  
-})
+  console.log(typeof favoritesArray[i]);
+});
+
+
 
 //REMOVE FAVORITE BREWERY
-
-
-
-
 
 removeBreweryBtn.addEventListener('click', removeBrewery)
 
@@ -188,9 +136,8 @@ function removeBrewery() {
 
 function getCoords() {
   if ("geolocation" in navigator) {
-    initialBrewListText.classList.add('hide-text')
+    initialBrewListText.classList.add('hide-text');
     document.getElementById("longitude").textContent = "";
-
     document.getElementById("latitude").textContent = "";
     
     navigator.geolocation.getCurrentPosition(async (position) => {
@@ -200,7 +147,7 @@ function getCoords() {
       let coordsURL = `https://api.openbrewerydb.org/breweries?by_dist=${lat},${long}&per_page=10`;
       document.getElementById("longitude").textContent += long.toFixed(3);
       document.getElementById("latitude").textContent += lat.toFixed(3);
-      brewList.textContent = ''
+      brewList.textContent = '';
       console.log(position);
 
       const data = { lat, long };
@@ -211,69 +158,52 @@ function getCoords() {
         },
         body: JSON.stringify(data),
       };
-      console.log('about to fetch')
-      try {const response = await fetch("/api", options);
-      const json = await response.json();
+      console.log('about to fetch');
+      try {
+        const response = await fetch("/api", options);
+        const json = await response.json();
       
-      console.log(json);
-      coordsArray.push(json);
-      console.log(coordsArray);}
-      catch (e){console.log("Copy error")}
+        console.log(json);
+        coordsArray.push(json);
+        console.log(coordsArray);
+      } catch (e) {
+        console.log("Copy error");
+      }
 
       fetch(coordsURL)
         .then((res) => {
           console.log({ res });
           return res.json();
         })
-
         .then((data) => {
           console.log(data);
           
-          let breweries = data.map((elem) => elem.name);
+          data.forEach((brewery) => {
+            const li = document.createElement("li");
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.setAttribute('id', brewery.name);
+            input.classList.add('brewery-checkbox');
 
-          let brewing_url = data.map((elem) => elem.website_url);
+            const a = document.createElement("a");
+            a.setAttribute("for", brewery.name);
 
-          let ul = document.getElementById("brewPlaces");
-
-        
-
-          for (let i = 0; i < breweries.length; i++) {
-            let li = document.createElement("li")
-    
-            let input = document.createElement('input')
-            input.type = 'checkbox'
-            input.setAttribute('id', breweries[i])
-            input.classList.add('brewery-checkbox')
-    
-            let a = document.createElement("a")
-            a.setAttribute("for", breweries[i])
-    
-            let link = document.createTextNode(breweries[i])
-            // let url_li = document.createElement("li") commented out because it's not used anywhere
+            const link = document.createTextNode(brewery.name);
             
-            breweryArray.push(data[i])
+            breweryArray.push(brewery);
             
-    
-                    // Creating link for breweries and appending to DOM
-            a.appendChild(link)
-            a.title = brewing_url[i] || "#"
-            a.href = brewing_url[i]
-            li.appendChild(a)
-            li.appendChild(input)
-            ul.appendChild(li)
-          }
-          
-        })
-            
-      })
+            a.appendChild(link);
+            a.title = brewery.website_url || "#";
+            a.href = brewery.website_url;
+            li.appendChild(a);
+            li.appendChild(input);
+            brewList.appendChild(li);
+          });
+        });
+    }); 
   } else {
-    console.log("Geolocation is not available")
+    console.log("Geolocation is not available");
   }
 }
 
 
-
-
-
-// Create section for Untappd API that returns extended information about the brewery
-// using URL - https://api.untappd.com/v4/brewery/info/BREWERY_ID
